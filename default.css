@@ -1,0 +1,18 @@
+html {
+	background-color: #b5c9d1 !important;
+}
+body {
+	width: 760px !important;
+	background-color: white !important;
+	margin: 24px auto !important;
+	padding: 50px !important;
+	line-height: 1.3;
+	font-size: 1.05em;
+}
+div {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+a {
+	color: #031DB5;
+}
