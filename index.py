@@ -7,6 +7,7 @@ import codecs
 import os
 import sys
 import urllib
+import template
 
 def find_domain (s):
     d = s.find("/", 8)
@@ -91,17 +92,10 @@ soup = BeautifulSoup(r.text, "html.parser")
 
 myblob = replace_links(soup.body.prettify(), domain)
 
-print "Content-Type: text/html\r\n"
-print '''
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charSet="utf8"/>
-    <link rel="stylesheet" type="text/css" href="default.css">
-</head>
-'''
+print template.header
+print template.head
 
 for line in myblob.splitlines():
     print codecs.encode(line, 'utf8', 'ignore')
 
-print "</html>"
+print template.foot
