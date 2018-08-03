@@ -91,11 +91,25 @@ soup = BeautifulSoup(r.text, "html.parser")
 [s.extract() for s in soup(['script', 'style', 'svg', 'img', 'video'])]
 
 myblob = replace_links(soup.body.prettify(), domain)
+lines = myblob.splitlines()
+
+if (lines[0].find("<body>") == 0):
+    lines[0] = lines[0][6:]
+
 
 print template.header
 print template.head
 
-for line in myblob.splitlines():
+for line in lines:
     print codecs.encode(line, 'utf8', 'ignore')
 
 print template.foot
+
+
+
+
+
+
+
+
+
