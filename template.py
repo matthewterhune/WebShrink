@@ -9,7 +9,12 @@ head = '''
 </head>
 <body>
 	<div class="navbar">
-		<p>webshrink</p>
+		<div class="title">webshrink</div>
+		<form class="urlform">
+			Website: 
+			<input type="text" name="url">
+			<input type="submit" value="Submit">
+		</form>
 	</div>
 '''
 
