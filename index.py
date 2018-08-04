@@ -108,13 +108,13 @@ lines = myblob.splitlines()
 if (lines[0].find("<body") == 0):
     lines[0] = lines[0][lines[0].find(">")+1:]
 
-print template.header
-print template.head
+print template.header()
+print template.head(["default"])
 
 for line in lines:
     print codecs.encode(line, 'utf8', 'ignore')
 
-print template.foot
+print template.foot()
 
 
 
