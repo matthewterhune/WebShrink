@@ -8,16 +8,19 @@ head = '''
 	<link rel="stylesheet" type="text/css" href="default.css">
 </head>
 <body>
-	<div class="navbar">
-		<div class="title">webshrink</div>
-		<form class="urlform">
+	<div class="wsnavbar">
+		<div class="wstitle">webshrink</div>
+		<form class="wsurlform">
 			Website: 
-			<input type="text" name="url">
-			<input type="submit" value="Submit">
+			<input type="text" name="url" class="wsurlbox">
+			<input type="submit" class="wssubmit" value="Submit">
 		</form>
 	</div>
+	<div class="wswrapper">
 '''
 
 foot = '''
+</div>
+</body>
 </html>
 '''

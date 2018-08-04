@@ -91,6 +91,11 @@ soup = BeautifulSoup(r.text, "html.parser")
 [s.extract() for s in soup(['script', 'style', 'svg', 'img', 'video'])]
 
 myblob = replace_links(soup.body.prettify(), domain)
+
+eb = myblob.find("</body>")
+if (eb != -1):
+    myblob = myblob[:eb] + myblob[eb+7:]
+
 lines = myblob.splitlines()
 
 if (lines[0].find("<body>") == 0):
