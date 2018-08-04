@@ -81,14 +81,21 @@ for arg in args:
     t=arg.split('=')
     if len(t)>1: k, v=arg.split('='); POST[k]=v
 
-
-url = urllib.unquote(GET["url"])
-domain = find_domain(url)
+if (len(GET) != 0):
+    url = urllib.unquote(GET["url"])
+    domain = find_domain(url)
+else:
+    url = "https://marginalrevolution.com"
+    domain = find_domain(url)
 
 r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
 
 soup = BeautifulSoup(r.text, "html.parser")
-[s.extract() for s in soup(['script', 'style', 'svg', 'img', 'video'])]
+[s.extract() for s in soup(['script', 'style', 'svg', 'img', 'video', 'iframe'])]
+
+for tag in soup():
+    for attribute in ["style"]:
+        del tag[attribute]
 
 myblob = replace_links(soup.body.prettify(), domain)
 
@@ -98,9 +105,8 @@ if (eb != -1):
 
 lines = myblob.splitlines()
 
-if (lines[0].find("<body>") == 0):
-    lines[0] = lines[0][6:]
-
+if (lines[0].find("<body") == 0):
+    lines[0] = lines[0][lines[0].find(">")+1:]
 
 print template.header
 print template.head
@@ -109,6 +115,7 @@ for line in lines:
     print codecs.encode(line, 'utf8', 'ignore')
 
 print template.foot
+
 
 
 

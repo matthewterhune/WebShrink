@@ -11,9 +11,8 @@ head = '''
 	<div class="wsnavbar">
 		<div class="wstitle">webshrink</div>
 		<form class="wsurlform">
-			Website: 
-			<input type="text" name="url" class="wsurlbox">
-			<input type="submit" class="wssubmit" value="Submit">
+			<input type="text" name="url" placeholder="https://example.com" class="wsurlbox">
+			<input type="submit" class="wssubmit" value="Shrink">
 		</form>
 	</div>
 	<div class="wswrapper">
