@@ -29,3 +29,7 @@ def foot ():
 	</html>
 	'''
 
+def info ():
+	return '''
+	<p class="infoblurb">Use webshrink to browse the internet with text only and avoid data charges. Enter a url and click "Shrink" to begin!</p>
+	'''

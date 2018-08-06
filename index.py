@@ -66,7 +66,7 @@ def replace_links (s, domain):
         returnstring = returnstring + nonlinks[len(links)-1]
         return returnstring
 
-
+#Read in get and post arguments from the page submission. Should only have GET currently
 GET={}
 args=os.getenv("QUERY_STRING").split('&')
 
@@ -81,38 +81,53 @@ for arg in args:
     t=arg.split('=')
     if len(t)>1: k, v=arg.split('='); POST[k]=v
 
-url = urllib.unquote(GET["url"])
-domain = find_domain(url)
-
-
-r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
-
-soup = BeautifulSoup(r.text, "html.parser")
-[s.extract() for s in soup(['script', 'style', 'svg', 'img', 'video', 'iframe'])]
-
-for tag in soup():
-    for attribute in ["style"]:
-        del tag[attribute]
-
-myblob = replace_links(soup.body.prettify(), domain)
-
-eb = myblob.find("</body>")
-if (eb != -1):
-    myblob = myblob[:eb] + myblob[eb+7:]
-
-lines = myblob.splitlines()
-
-if (lines[0].find("<body") == 0):
-    lines[0] = lines[0][lines[0].find(">")+1:]
-
+#Add the default stylesheet
 sheets = ["default"]
-sheets.append(domain[domain.find("//")+2:])
 
+if (len(GET) == 0):
+	showinfo = True
+else:
+	showinfo = False
+	url = urllib.unquote(GET["url"])
+	domain = find_domain(url)
+
+	#Retrieve the url. Spoof Firefox user agent to avoid looking like a bot
+	r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
+
+	#Create soup object, then extract and discard the tags we don't want
+	soup = BeautifulSoup(r.text, "html.parser")
+	[s.extract() for s in soup(['script', 'style', 'svg', 'img', 'video', 'iframe'])]
+
+	#Delete any inline style from the remaining tags
+	for tag in soup():
+	    for attribute in ["style"]:
+	        del tag[attribute]
+
+	#Convert soup object back to string, then add our custom domain to any links
+	myblob = replace_links(soup.body.prettify(), domain)
+
+	#Remove the body tags so we can add our own header
+	eb = myblob.find("</body>")
+	if (eb != -1):
+	    myblob = myblob[:eb] + myblob[eb+7:]
+
+	lines = myblob.splitlines() #Python freaks out if we print a super long string, so split into lines
+
+	if (lines[0].find("<body") == 0):
+	    lines[0] = lines[0][lines[0].find(">")+1:]
+
+	#Assemble list of custom stylesheets
+	sheets.append(domain[domain.find("//")+2:])
+
+#Print the page
 print template.header()
 print template.head(sheets)
 
-for line in lines:
-    print codecs.encode(line, 'utf8', 'ignore')
+if showinfo:
+	print template.info()
+else:
+	for line in lines:
+	    print codecs.encode(line, 'utf8', 'ignore')
 
 print template.foot()
 
