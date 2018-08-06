@@ -81,12 +81,9 @@ for arg in args:
     t=arg.split('=')
     if len(t)>1: k, v=arg.split('='); POST[k]=v
 
-if (len(GET) != 0):
-    url = urllib.unquote(GET["url"])
-    domain = find_domain(url)
-else:
-    url = "https://marginalrevolution.com"
-    domain = find_domain(url)
+url = urllib.unquote(GET["url"])
+domain = find_domain(url)
+
 
 r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
 
