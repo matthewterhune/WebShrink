@@ -86,13 +86,35 @@ sheets = ["default"]
 
 if (len(GET) == 0):
 	showinfo = True
+elif (GET["url"] == u""):
+	showinfo = True
 else:
 	showinfo = False
 	url = urllib.unquote(GET["url"])
+
+	r = False
+	if (url.find("https://") != 0 and url.find("http://") != 0):
+		try:
+			r = requests.get("http://" + url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
+		except:
+			try:
+				r = requests.get("https://" + url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
+			except:
+				pass
+	else:
+		try:
+			r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
+		except:
+			pass
+
+	if (r == False):
+		url = "https://bing.com/search?q=" + url.replace(" ", "+")
+		r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
+
 	domain = find_domain(url)
 
 	#Retrieve the url. Spoof Firefox user agent to avoid looking like a bot
-	r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
+	#r = requests.get(url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
 
 	#Create soup object, then extract and discard the tags we don't want
 	soup = BeautifulSoup(r.text, "html.parser")
