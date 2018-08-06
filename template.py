@@ -8,7 +8,7 @@ def head (stylesheets):
 	<head>
 		<meta charSet="utf8"/>'''
 	for sheet in stylesheets:
-		returnstring = returnstring + '<link rel="stylesheet" type="text/css" href="' + sheet + '.css">'
+		returnstring = returnstring + '<link rel="stylesheet" type="text/css" href="styles/' + sheet + '.css">'
 	returnstring = returnstring + '''</head>
 	<body>
 		<div class="wsnavbar">

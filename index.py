@@ -108,8 +108,11 @@ lines = myblob.splitlines()
 if (lines[0].find("<body") == 0):
     lines[0] = lines[0][lines[0].find(">")+1:]
 
+sheets = ["default"]
+sheets.append(domain[domain.find("//")+2:])
+
 print template.header()
-print template.head(["default"])
+print template.head(sheets)
 
 for line in lines:
     print codecs.encode(line, 'utf8', 'ignore')
