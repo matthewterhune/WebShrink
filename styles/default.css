@@ -46,9 +46,9 @@ a {
 }
 
 .wsurlform {
-	padding: 0 100px 0 0 !important;
 	font-size: 20px;
 	line-height: 40px;
+	display: inline;
 }
 
 .wsurlbox {
@@ -68,4 +68,11 @@ a {
 	background-color: #666;
 	color: white;
 	cursor: pointer;
+}
+
+.wssettings {
+	float: right;
+	color: #ccc;
+	font-size: 17px;
+	padding: 10px 0 8px 20px !important;
 }
