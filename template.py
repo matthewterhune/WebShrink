@@ -17,6 +17,7 @@ def head (stylesheets):
 				<input type="text" name="url" placeholder="https://example.com" class="wsurlbox">
 				<input type="submit" class="wssubmit" value="Shrink">
 			</form>
+			<a href="settings.py"><div class="wssettings">Settings</div></a>
 		</div>
 		<div class="wswrapper">
 	'''
