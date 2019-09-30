@@ -76,3 +76,32 @@ a {
 	font-size: 17px;
 	padding: 10px 0 8px 20px !important;
 }
+
+@media only screen and (min-resolution: 117dpi) and (max-resolution: 119dpi), only screen and (min-resolution: 131dpi) and (max-resolution: 133dpi), only screen and (min-resolution: 145dpi) and (max-resolution: 154dpi), only screen and (min-resolution: 162dpi) and (max-resolution: 164dpi), only screen and (min-resolution: 169dpi) {
+  .wssubmit {
+  	font-size: 36px;
+  }
+
+  .wsurlbox {
+	font-size: 36px;
+	width: 450px;
+  }
+
+  .wstitle {
+  	font-size: 48px;
+  	margin-top: 8px !important;
+  }
+
+  .wsnavbar {
+	padding: 8px 40px 6px !important;
+  }
+
+  .wssettings {
+  	display: none;
+  }
+
+  .wswrapper {
+  	font-size: 1.3em;
+  }
+
+}
